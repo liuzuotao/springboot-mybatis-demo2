@@ -1,0 +1,13 @@
+package com.springboot.mybatis.springbootmybatisdemo2;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringbootMybatisDemo2Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootMybatisDemo2Application.class, args);
+    }
+
+}
