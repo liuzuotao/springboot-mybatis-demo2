@@ -14,14 +14,14 @@ public class TestController {
     @Autowired
     private CourseService courseService;
 
-    @RequestMapping("/select")
+    @RequestMapping("/courseselect")
     public int select(){
-        System.out.println("select调用成功");
+        //System.out.println("select调用成功");
         coursemodel res=null;
         List<coursemodel> a=this.courseService.select();
         for(int i=0;i<a.size();i++){
             res=a.get(i);
-            System.out.println(res.getCourseName()+"  "+res.getDifficultyLevel()+"  "+res.getStarLevel());
+            System.out.println(res.getCourse_name()+"  "+res.getDifficulty_level()+"  "+res.getStar_level());
         }
         return 1;
     }
