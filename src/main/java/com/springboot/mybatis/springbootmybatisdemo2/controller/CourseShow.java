@@ -14,6 +14,7 @@ import com.springboot.mybatis.springbootmybatisdemo2.model.coursemodel;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.jws.WebParam;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,6 +31,22 @@ public class CourseShow {
     public String CourseListShow(Model model){
         List<coursemodel> course=courseService.select();
         model.addAttribute("Courses",course);
+        return "CourseList";
+    }
+    @RequestMapping("/Search")
+    public String SearchCourse(Model model,String text){
+        if(text==null)
+            return "CourseList";
+        String Pattern=".*"+text+".*";
+        List<coursemodel> courses=courseService.select();
+        List<coursemodel> result=new ArrayList<coursemodel>();
+        for(int i=0;i<courses.size();i++){
+            String name=courses.get(i).getCourse_name();
+            if(name.matches(Pattern))
+                result.add(courses.get(i));
+        }
+        model.addAttribute("Courses",result);
+        model.addAttribute("txt",text);
         return "CourseList";
     }
 

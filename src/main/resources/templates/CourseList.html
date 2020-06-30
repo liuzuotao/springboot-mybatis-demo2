@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>课程列表</title>
-    <script>
+    <script type="text/javascript" th:inline="javascript">
         function getid() {//搜索选中id
             var id=document.getElementsByName("Courseid")
             if(id!=null){
@@ -16,17 +16,27 @@
             return null;
         }
         function jumpComment() {
+            if(getid()==null)
+                alert("未选中书籍");
+            else
             window.location.href="/test/commentList/"+getid();
         }
         function jumpChapter() {
+            if(getid()==null)
+                alert("未选中书籍");
+            else
             window.location.href="/test/chapter/"+getid();
+        }
+        function SearchCourse() {
+            var text=document.getElementById("text");
+            window.location.href="/test/Search?text="+text.value;
         }
     </script>
 </head>
 <body>
 <form>
-    <input type="text">
-    <input type="button" value="搜索">
+    <input type="text" id="text" name="text" th:value="${txt}">
+    <input type="button" value="搜索" onclick="SearchCourse()">
     <input type="button" value="查看章节" onclick="jumpChapter()">
     <input type="button" value="查看评论" onclick="jumpComment()">
 <br>
