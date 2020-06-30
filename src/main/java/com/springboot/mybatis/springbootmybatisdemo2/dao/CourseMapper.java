@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface CourseMapper {
     List<coursemodel> select();
+    List<coursemodel> selectid(int id);
     int update(coursemodel cml);
 }

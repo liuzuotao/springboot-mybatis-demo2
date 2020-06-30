@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>章节列表</title>
+</head>
+<body>
+<h2 th:text="${course.getCourse_name()}"></h2>
+<br>
+<label>难度等级:</label><label th:text="${course.getDifficulty_level()}"></label>
+<table border="1">
+    <tr>
+        <th>章节号</th>
+        <th>章节名</th>
+    </tr>
+    <tr th:each="chapter:${chapterList}">
+        <td th:text="${chapter.getChapterNum()}"></td>
+        <td th:text="${chapter.getCapterInfo()}"></td>
+    </tr>
+</table>
+</body>
+</html>

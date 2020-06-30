@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>课程列表</title>
+    <script>
+        function getid() {//搜索选中id
+            var id=document.getElementsByName("Courseid")
+            if(id!=null){
+                var i;
+                for(i=0;i<id.length;i++){
+                    if(id[i].checked)
+                        return id[i].value;
+                }
+            }
+            return null;
+        }
+        function jumpComment() {
+            window.location.href="/test/commentList/"+getid();
+        }
+        function jumpChapter() {
+            window.location.href="/test/chapter/"+getid();
+        }
+    </script>
+</head>
+<body>
+<form>
+    <input type="text">
+    <input type="button" value="搜索">
+    <input type="button" value="查看章节" onclick="jumpChapter()">
+    <input type="button" value="查看评论" onclick="jumpComment()">
+<br>
+<table border="1">
+    <tr>
+        <th>
+            选择
+        </th>
+        <th>
+            课程名称
+        </th>
+        <th>
+            难度等级
+        </th>
+        <th>
+            评星
+        </th>
+    </tr>
+    <tr th:each="Course:${Courses}">
+        <td><input type="radio" id="Courseid" name="Courseid" th:value="${Course.getId()}"></td>
+        <td th:text="${Course.getCourse_name()}"></td>
+        <td th:text="${Course.getDifficulty_level()}"></td>
+        <td th:text="${Course.getStar_level()}"></td>
+    </tr>
+    <script>
+        document.getElementsByName("Courseid")[0].checked=1;//选中第一个单选框按钮
+    </script>
+</table>
+</form>
+</body>
+</html>

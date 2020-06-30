@@ -17,6 +17,9 @@ public class CourseService {
         //System.out.println("service调用成功");
         return courseMapper.select();
     }
+    public List<coursemodel> selectid(int id){
+        return courseMapper.selectid(id);
+    }
     public int update(String name,String StarLevel){
 
         List<coursemodel> a=courseMapper.select();

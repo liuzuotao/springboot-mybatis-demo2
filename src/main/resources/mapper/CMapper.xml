@@ -10,6 +10,11 @@
     <sql id="CourseList">
         id,course_name,difficulty_level,star_level
     </sql>
+    <select id="selectid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="CourseList"/>
+        from course
+        where id= #{id,jdbcType=INTEGER}
+    </select>
     <select id="select" resultMap="BaseResultMap">
 select   <include refid="CourseList"/>
 from course

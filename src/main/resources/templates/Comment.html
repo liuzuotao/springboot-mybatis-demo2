@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>评论页面</title>
+</head>
+<body>
+<h2 th:text="${course.getCourse_name()}"></h2>
+<br>
+<label>难度等级:</label><label th:text="${course.getDifficulty_level()}"></label>
+<label>|综合评分：</label><label th:text="${course.getStar_level()}"></label>
+<form>
+    <textarea id="CMTinfo" name="CMTinfo"></textarea>
+    <select name="Star" id="Star">
+        <option value="1星">一星</option>
+        <option value="2星">二星</option>
+        <option value="3星">三星</option>
+        <option value="4星">四星</option>
+        <option value="5星">五星</option>
+    </select>
+    <input type="button" value="提交">
+</form>
+<table border="1">
+    <tr>
+        <th>星级</th>
+        <th>评论内容</th>
+    </tr>
+    <tr th:each="comment:${commentlist}">
+        <td th:text="${comment.getStar_level()}"></td>
+        <td th:text="${comment.getComment_info()}"></td>
+    </tr>
+</table>
+</body>
+</html>
