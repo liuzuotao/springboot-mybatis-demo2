@@ -20,12 +20,12 @@ public class CourseService {
     public List<coursemodel> selectid(int id){
         return courseMapper.selectid(id);
     }
-    public int update(String name,String StarLevel){
+    public int update(int id,String StarLevel){
 
         List<coursemodel> a=courseMapper.select();
         coursemodel Res=null;
         for(int i=0;i<a.size();i++){
-            if(a.get(i).getCourse_name().equals(name)){
+            if(a.get(i).getId()==id){
                 Res=a.get(i);
                 Res.setStar_level(StarLevel);
                 courseMapper.update(Res);

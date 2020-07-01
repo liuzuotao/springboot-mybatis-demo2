@@ -12,10 +12,10 @@ public class CommentService {
     @Autowired
     private CommentMapper commentMapper;
     public List<CommentModel> select(int id){
-        System.out.println("server被调用");
         return this.commentMapper.select(id);
     }
     public int insert(CommentModel commentModel){
+        System.out.println("comment插入数据"+commentModel.getComment_info());
         return this.commentMapper.insert(commentModel);
     }
 }

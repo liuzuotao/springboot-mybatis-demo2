@@ -3,13 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>评论页面</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+
+        function Buttonclick(){
+            var id=document.getElementById("courseid").value;
+            var star=document.getElementById("Star");
+            var starLevel=star.options[star.selectedIndex].value;
+            var cmtInfo=document.getElementById("CMTinfo").value;
+            if(cmtInfo==""){
+                alert("评论不能为空");
+                return null;
+            }
+            var Data={"id":id,"starLevel":starLevel,"cmtInfo":cmtInfo};
+            $.ajax({
+                type:"post",
+                url:"/test/recrivecomment",
+                contentType: 'application/json;charset=utf-8',
+                data:JSON.stringify(Data),
+                dataType:'json',//dataType:"json",使得返回来的数据格式为json 如果不 添加该条属性，则返回来的为字符串
+                success:function(data){//对传入的值进行处理
+                    var coursestarLevel=data["coursestarLevel"];
+                    var Level=document.getElementById("Level");
+                    Level.innerText=coursestarLevel;
+                    var tab=document.getElementById("tab");
+                    tab.innerHTML+='<tr> <td> '+data["starLevel"]+'</td> <td>'+data["cmtInfo"]+'</td></tr>';
+                },
+                error:function(data){
+                    alert("失败");
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <h2 th:text="${course.getCourse_name()}"></h2>
 <br>
 <label>难度等级:</label><label th:text="${course.getDifficulty_level()}"></label>
-<label>|综合评分：</label><label th:text="${course.getStar_level()}"></label>
+<label>|综合评分：</label><label id="Level" th:name="Level" th:text="${course.getStar_level()}"></label>
 <form>
+    <input type="hidden" th:value="${course.getId()}" id="courseid" name="courseid">
     <textarea id="CMTinfo" name="CMTinfo"></textarea>
     <select name="Star" id="Star">
         <option value="1星">一星</option>
@@ -18,9 +51,10 @@
         <option value="4星">四星</option>
         <option value="5星">五星</option>
     </select>
-    <input type="button" value="提交">
+    <input type="button" id="button" name="button" onclick="Buttonclick()" value="发表">
 </form>
-<table border="1">
+<br>
+<table border="1" id="tab" th:name="tab">
     <tr>
         <th>星级</th>
         <th>评论内容</th>
