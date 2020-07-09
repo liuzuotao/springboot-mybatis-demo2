@@ -18,4 +18,6 @@
         insert into chapter (id,chapter_num,chapter_info)
         values ( #{id ,jdbcType=INTEGER}),#{ chapterNum,jdbcType=INTEGER},#{capterInfo,jdbcType=VARCHAR})
     </insert>
+    <!--mybatis动态标签 -->
+
 </mapper>

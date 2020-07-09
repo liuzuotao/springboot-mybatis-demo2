@@ -24,4 +24,29 @@ from course
         star_level= #{star_level,jdbcType=VARCHAR}
         where id=#{id,jdbcType=INTEGER}
     </update>
+    <!--mybatis动态标签 -->
+    <!--if标签实现模糊查询-->
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <bind name="courseName" value="'%'+name+'%'" />
+        select <include refid="CourseList"/>
+        from course
+        <if test="name != null">
+        where course_name like #{courseName}
+        </if>
+    </select>
+    <select id="chooseSelect" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="CourseList"/>
+        from course where id
+        <choose>
+            <when test="starLevel != null and starLevel !=''">
+            and star_level='${starLevel}'
+            </when>
+            <when test="difficultyLevel != null and difficultyLevel!='' ">
+                and difficulty_level='${difficultyLevel}'
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

@@ -34,4 +34,10 @@ public class CourseService {
         }
         return 0;
     }
+    public List<coursemodel> selectByName(String name){
+        return courseMapper.selectByName(name);
+    }
+    public List<coursemodel> chooseSelect(String starLevel,String difficultyLevel){
+        return courseMapper.chooseSelect(starLevel,difficultyLevel);
+    }
 }

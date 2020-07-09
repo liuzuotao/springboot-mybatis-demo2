@@ -31,12 +31,25 @@
             var text=document.getElementById("text");
             window.location.href="/test/Search?text="+text.value;
         }
+        function searchByStarOrDif() {
+            var starLevel=document.getElementById("starLevel");
+            var difficultyLevel=document.getElementById("difficultyLevel");
+            //alert("/test/SearchByStarOrDif?starLevel="+starLevel.value+"&difficultyLevel="+difficultyLevel.value);
+            window.location.href="/test/SearchByStarOrDif?starLevel="+starLevel.value+"&difficultyLevel="+difficultyLevel.value;
+        }
     </script>
 </head>
 <body>
 <form>
     <input type="text" id="text" name="text" th:value="${txt}">
     <input type="button" value="搜索" onclick="SearchCourse()">
+    <br>
+    <label >星级</label>
+    <input type="text" id="starLevel" name="starLevel" th:value="${starLevel}">
+    <label> 难度</label>
+    <input type="text" id="difficultyLevel" name="difficultyLevel" th:value="${difficultyLevel}">
+    <input type="button" value="搜索2" onclick="searchByStarOrDif()">
+    <br>
     <input type="button" value="查看章节" onclick="jumpChapter()">
     <input type="button" value="查看评论" onclick="jumpComment()">
 <br>

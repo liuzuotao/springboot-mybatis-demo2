@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import com.springboot.mybatis.springbootmybatisdemo2.model.coursemodel;
 
 import javax.jws.WebParam;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,21 +39,23 @@ public class CourseShow {
     }
     @RequestMapping("/Search")
     public String SearchCourse(Model model,String text){//根据书名实现模糊查询返回结果数组
-        if(text==null)
-            return "CourseList";
-        String Pattern=".*"+text+".*";
-        List<coursemodel> courses=courseService.select();
-        List<coursemodel> result=new ArrayList<coursemodel>();
-        for(int i=0;i<courses.size();i++){
-            String name=courses.get(i).getCourse_name();
-            if(name.matches(Pattern))
-                result.add(courses.get(i));
-        }
+        //使用动态sql语句实现模糊查询
+        List<coursemodel> result=courseService.selectByName(text);
+        if(result==null)
+            System.out.println("未查询到数据");
         model.addAttribute("Courses",result);
         model.addAttribute("txt",text);
         return "CourseList";
     }
-
+    @RequestMapping("/SearchByStarOrDif")
+    public String SearchByStarOrDif(Model model,String starLevel,String difficultyLevel){
+        System.out.println("星级："+starLevel+"难度等级"+difficultyLevel);
+        List<coursemodel> result=courseService.chooseSelect(starLevel,difficultyLevel);
+        model.addAttribute("starLevel",starLevel);
+        model.addAttribute("difficultyLevel",difficultyLevel);
+        model.addAttribute("Courses",result);
+        return "CourseList";
+    }
     @RequestMapping("/commentList/{id}")
     public String CommentListShow(Model model,@PathVariable(name = "id") int id){//获取评论列表
         List<coursemodel> coursemodels=courseService.selectid(id);
